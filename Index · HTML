@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>el mohands saad store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== خلفية الكرات المتوهجة ===== -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+  </div>
+
+  <!-- ===== شريط التنقل ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">لوميير</span>
+      </div>
+      <div class="nav-search">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="ابحث عن منتج..." class="search-input" autocomplete="off" />
+          <button class="search-clear" id="searchClear" aria-label="مسح البحث">✕</button>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="admin-badge hidden" id="adminBadge" title="وضع المالك">⚙ المالك</button>
+        <button class="admin-logout-btn hidden" id="adminLogoutBtn">خروج</button>
+        <button class="cart-btn" id="cartBtn" aria-label="فتح سلة المشتريات">
+          <span class="cart-icon">🛍</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="categories-bar">
+      <div class="categories-inner">
+        <button class="cat-btn active" data-cat="all">الكل</button>
+        <button class="cat-btn" data-cat="electronics">إلكترونيات</button>
+        <button class="cat-btn" data-cat="fashion">أزياء</button>
+        <button class="cat-btn" data-cat="home">المنزل</button>
+        <button class="cat-btn" data-cat="beauty">الجمال</button>
+        <button class="cat-btn" data-cat="sport">رياضة</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== المحتوى الرئيسي ===== -->
+  <main class="main-content">
+
+    <section class="hero">
+      <div class="hero-content">
+        <p class="hero-eyebrow">مجموعة ربيع ٢٠٢٦</p>
+        <h1 class="hero-title">اكتشف<br/><em>الأناقة</em><br/>الحقيقية</h1>
+        <p class="hero-subtitle">منتجات مختارة بعناية لأسلوب حياة استثنائي</p>
+        <button class="hero-cta" onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">
+          تسوّق الآن <span class="cta-arrow">↓</span>
+        </button>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="floating-card fc-1"><span>✦ جديد</span><p>أحدث المنتجات</p></div>
+          <div class="floating-card fc-2"><span>🚚</span><p>شحن مجاني</p></div>
+          <div class="floating-card fc-3"><span>⭐ 4.9</span><p>تقييم العملاء</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="products-section" id="products-section">
+      <div class="section-header">
+        <h2 class="section-title">منتجاتنا المميزة</h2>
+        <div class="section-header-right">
+          <p class="section-sub" id="resultsCount">عرض جميع المنتجات</p>
+          <button class="add-product-btn hidden" id="addProductBtn">＋ إضافة منتج</button>
+        </div>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+      <div class="no-results hidden" id="noResults">
+        <div class="no-results-icon">🔍</div>
+        <h3>لا توجد نتائج</h3>
+        <p>جرّب البحث بكلمات مختلفة أو اختر فئة أخرى</p>
+      </div>
+    </section>
+
+    <!-- زر المالك السري -->
+    <div class="secret-admin-zone">
+      <button id="secretAdminBtn" title="دخول المالك">⚙</button>
+    </div>
+
+  </main>
+
+  <!-- ===== درج السلة ===== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-label="سلة المشتريات">
+    <div class="cart-header">
+      <h2 class="cart-title">🛍 سلّتي</h2>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-summary">
+        <div class="summary-row"><span>المجموع الفرعي</span><span id="subtotalAmount">٠ ر.س</span></div>
+        <div class="summary-row"><span>الشحن</span><span class="free-shipping">مجاني</span></div>
+        <div class="summary-row total-row"><span>الإجمالي</span><span id="totalAmount">٠ ر.س</span></div>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">إتمام الطلب ←</button>
+    </div>
+    <div class="cart-empty hidden" id="cartEmpty">
+      <div class="empty-icon">🛒</div>
+      <h3>سلّتك فارغة</h3>
+      <p>أضف منتجات لتبدأ التسوّق</p>
+      <button class="continue-shopping" id="continueShopping">تصفّح المنتجات</button>
+    </div>
+  </aside>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ============================================================
+       مودال إتمام الطلب — نموذج العميل + WhatsApp
+       ============================================================ -->
+  <div class="modal-overlay hidden" id="checkoutFormModal">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h2 class="modal-title">📦 إتمام الطلب</h2>
+        <button class="modal-x" id="checkoutFormClose">✕</button>
+      </div>
+      <div class="order-mini-summary" id="orderMiniSummary"></div>
+      <form class="checkout-form" id="checkoutForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="customerName">الاسم الكامل *</label>
+            <input type="text" id="customerName" placeholder="محمد أحمد" required />
+            <span class="field-error" id="nameError"></span>
+          </div>
+          <div class="form-group">
+            <label for="customerPhone">رقم الهاتف *</label>
+            <input type="tel" id="customerPhone" placeholder="05xxxxxxxx" required />
+            <span class="field-error" id="phoneError"></span>
+          </div>
+          <div class="form-group form-full">
+            <label for="customerAddress">العنوان التفصيلي *</label>
+            <input type="text" id="customerAddress" placeholder="المدينة، الحي، الشارع، رقم المنزل..." required />
+            <span class="field-error" id="addressError"></span>
+          </div>
+          <div class="form-group form-full">
+            <label for="customerNotes">ملاحظات إضافية</label>
+            <textarea id="customerNotes" rows="3" placeholder="أي تفاصيل إضافية..."></textarea>
+          </div>
+        </div>
+        <div class="form-total-bar">
+          <span>الإجمالي:</span>
+          <span id="checkoutTotal" class="form-total-num">٠ ر.س</span>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="checkoutFormCancel">إلغاء</button>
+          <button type="submit" class="btn-whatsapp">
+            <span>📲</span> إرسال الطلب عبر واتساب
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- مودال نجاح الطلب -->
+  <div class="modal-overlay hidden" id="successModal">
+    <div class="modal modal-sm text-center">
+      <div class="modal-icon">🎉</div>
+      <h2>تم إرسال طلبك!</h2>
+      <p>سيتواصل معك فريقنا قريباً لتأكيد الطلب وترتيب التوصيل.</p>
+      <button class="modal-close-btn" id="successModalClose">رائع، شكراً! ✦</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       مودال تسجيل دخول المالك
+       ============================================================ -->
+  <div class="modal-overlay hidden" id="adminLoginModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2 class="modal-title">🔐 دخول المالك</h2>
+        <button class="modal-x" id="adminLoginClose">✕</button>
+      </div>
+      <form class="checkout-form" id="adminLoginForm" novalidate>
+        <div class="form-group">
+          <label for="adminPassword">كلمة المرور</label>
+          <input type="password" id="adminPassword" placeholder="••••••••" required autocomplete="current-password" />
+          <span class="field-error" id="adminPassError"></span>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="adminLoginCancel">إلغاء</button>
+          <button type="submit" class="btn-primary">دخول ⚙</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       مودال إضافة / تعديل منتج
+       ============================================================ -->
+  <div class="modal-overlay hidden" id="productFormModal">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h2 class="modal-title" id="productFormTitle">➕ إضافة منتج جديد</h2>
+        <button class="modal-x" id="productFormClose">✕</button>
+      </div>
+      <form class="checkout-form" id="productForm" novalidate>
+        <input type="hidden" id="productFormId" />
+        <div class="form-grid">
+          <div class="form-group form-full">
+            <label for="pName">اسم المنتج *</label>
+            <input type="text" id="pName" placeholder="اسم المنتج..." required />
+          </div>
+          <div class="form-group">
+            <label for="pPrice">السعر (ر.س) *</label>
+            <input type="number" id="pPrice" placeholder="0" min="0" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="pCategory">الفئة *</label>
+            <select id="pCategory" required>
+              <option value="">— اختر الفئة —</option>
+              <option value="electronics">إلكترونيات</option>
+              <option value="fashion">أزياء</option>
+              <option value="home">المنزل</option>
+              <option value="beauty">الجمال</option>
+              <option value="sport">رياضة</option>
+            </select>
+          </div>
+          <div class="form-group form-full">
+            <label for="pImage">رابط صورة المنتج (URL)</label>
+            <input type="url" id="pImage" placeholder="https://images.unsplash.com/..." />
+          </div>
+          <div class="form-group">
+            <label for="pRating">التقييم (1–5)</label>
+            <input type="number" id="pRating" placeholder="4.8" min="1" max="5" step="0.1" />
+          </div>
+          <div class="form-group">
+            <label for="pReviews">عدد التقييمات</label>
+            <input type="number" id="pReviews" placeholder="100" min="0" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="productFormCancel">إلغاء</button>
+          <button type="submit" class="btn-primary">💾 حفظ المنتج</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- مودال تأكيد حذف منتج -->
+  <div class="modal-overlay hidden" id="deleteModal">
+    <div class="modal modal-sm text-center">
+      <div class="modal-icon">🗑️</div>
+      <h2>تأكيد الحذف</h2>
+      <p id="deleteModalText">هل أنت متأكد من حذف هذا المنتج؟</p>
+      <div class="form-actions" style="margin-top:28px">
+        <button class="btn-ghost" id="deleteCancelBtn">إلغاء</button>
+        <button class="btn-danger" id="deleteConfirmBtn">نعم، احذف</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
