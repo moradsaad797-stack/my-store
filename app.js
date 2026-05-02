@@ -190,7 +190,7 @@ function loadFromStorage() {
 /* ============================================================
    ٧. تنسيق الأرقام
    ============================================================ */
-function formatPrice(amount) { return `${Number(amount).toLocaleString('ar-SA')} ر.س`; }
+function formatPrice(amount) { return `${Number(amount).toLocaleString('ar-SA')} ج.م`; }
 
 /* ============================================================
    ٨. منطق السلة
